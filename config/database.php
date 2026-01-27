@@ -29,6 +29,8 @@ return [
     |
     */
 
+// Se utiliza SQLite como base de datos por simplicidad en el entorno local y compatibilidad con Laravel Reverb
+
     'connections' => [
 
         'sqlite' => [
