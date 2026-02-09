@@ -3,11 +3,21 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/test', function () {
+    sleep(2); // simula carga
+    return response()->json([
+        'ok' => true,
+        'message' => 'Petición completada correctamente desde Laravel'
+    ]);
+});
+
+
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// 👇 AGREGA ESTO ABAJO
+
 Route::get('/test', function () {
     return response()->json([
         'message' => 'Backend conectado correctamente'
