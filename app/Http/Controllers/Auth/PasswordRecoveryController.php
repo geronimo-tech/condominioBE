@@ -31,6 +31,8 @@ class PasswordRecoveryController extends Controller
         $usuario->codigo_expira = now()->addMinutes(10);
         $usuario->save();
 
+// Genera código de recuperación de 6 dígitos y lo envía por correo
+
         Mail::raw("Tu código de recuperación es: $codigo", function ($message) use ($usuario) {
             $message->to($usuario->email)
                     ->subject('Recuperación de contraseña');
