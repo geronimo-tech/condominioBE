@@ -80,5 +80,6 @@ class PasswordRecoveryController extends Controller
             'mensaje'=>'Contraseña actualizada'
         ]);
     }
-
+// Permite cambiar la contraseña después de validar el código
+//Codigo corregido 
 }
