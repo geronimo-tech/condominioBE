@@ -7,18 +7,30 @@ use Illuminate\Http\Request;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, ...$roles)
+
+    public function handle(Request $request, Closure $next, $role)
     {
+
         $user = $request->user();
 
         if (!$user) {
-            return response()->json(['message' => 'No autenticado'], 401);
+
+            return response()->json([
+                'message' => 'Usuario no autenticado'
+            ], 401);
+
         }
 
-        if (!$user->roles()->whereIn('name', $roles)->exists()) {
-            return response()->json(['message' => 'No autorizado'], 403);
+        if ($user->role !== $role) {
+
+            return response()->json([
+                'message' => 'No autorizado'
+            ], 403);
+
         }
 
         return $next($request);
+
     }
+
 }

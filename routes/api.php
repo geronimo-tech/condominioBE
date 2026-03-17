@@ -6,14 +6,29 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\PasswordRecoveryController;
 
 
+
+// ============================
+// AUTENTICACIÓN
+// ============================
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
 
+// ============================
+// RECUPERACIÓN DE CONTRASEÑA
+// ============================
+
 Route::post('/recuperar-password',[PasswordRecoveryController::class,'enviarCodigo']);
 Route::post('/verificar-codigo',[PasswordRecoveryController::class,'verificarCodigo']);
 Route::post('/cambiar-password',[PasswordRecoveryController::class,'cambiarPassword']);
+
+
+
+// ============================
+// RUTAS PROTEGIDAS (SESIÓN)
+// ============================
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -29,4 +44,40 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 
+});
+
+
+
+// ============================
+// RUTAS SOLO ADMIN
+// ============================
+
+Route::middleware(['auth:sanctum','role:admin'])->group(function () {
+
+    Route::get('/admin', function () {
+
+        return response()->json([
+            'message' => 'Bienvenido administrador'
+        ]);
+
     });
+
+});
+
+
+
+// ============================
+// RUTAS SOLO USUARIO
+// ============================
+
+Route::middleware(['auth:sanctum','role:usuario'])->group(function () {
+
+    Route::get('/panel-usuario', function () {
+
+        return response()->json([
+            'message' => 'Panel del usuario'
+        ]);
+
+    });
+
+});
